@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Abhishek Deore">
+
+<title>r-python-exercise2-abhishekdeore</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="_r-python-exercise2-abhishekdeore_files/libs/clipboard/clipboard.min.js"></script>
+<script src="_r-python-exercise2-abhishekdeore_files/libs/quarto-html/quarto.js"></script>
+<script src="_r-python-exercise2-abhishekdeore_files/libs/quarto-html/popper.min.js"></script>
+<script src="_r-python-exercise2-abhishekdeore_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="_r-python-exercise2-abhishekdeore_files/libs/quarto-html/anchor.min.js"></script>
+<link href="_r-python-exercise2-abhishekdeore_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="_r-python-exercise2-abhishekdeore_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="_r-python-exercise2-abhishekdeore_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="_r-python-exercise2-abhishekdeore_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="_r-python-exercise2-abhishekdeore_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">r-python-exercise2-abhishekdeore</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Abhishek Deore </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="data-quality-issues" class="level2">
+<h2 class="anchored" data-anchor-id="data-quality-issues">Data Quality Issues</h2>
+<p>Data quality issues refer to problems or shortcomings in the data that can affect its reliability, accuracy, completeness, and usefulness for analysis or decision-making. Data quality is crucial because inaccurate or incomplete data can lead to incorrect conclusions and unreliable results.</p>
+<p>Addressing data quality issues typically involves data cleaning, validation, and transformation processes. Data quality tools and practices, such as data profiling, data validation rules, and data governance, are often used to improve and maintain data quality.</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">'https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data'</span>, header<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>data.columns <span class="op">=</span> [<span class="st">'Sample code'</span>, <span class="st">'Clump Thickness'</span>, <span class="st">'Uniformity of Cell Size'</span>, <span class="st">'Uniformity of Cell Shape'</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">'Marginal Adhesion'</span>, <span class="st">'Single Epithelial Cell Size'</span>, <span class="st">'Bare Nuclei'</span>, <span class="st">'Bland Chromatin'</span>,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                <span class="st">'Normal Nucleoli'</span>, <span class="st">'Mitoses'</span>,<span class="st">'Class'</span>]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.drop([<span class="st">'Sample code'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of instances = </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (data.shape[<span class="dv">0</span>]))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of attributes = </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (data.shape[<span class="dv">1</span>]))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of instances = 699
+Number of attributes = 10</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Clump Thickness</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Size</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Shape</th>
+<th data-quarto-table-cell-role="th">Marginal Adhesion</th>
+<th data-quarto-table-cell-role="th">Single Epithelial Cell Size</th>
+<th data-quarto-table-cell-role="th">Bare Nuclei</th>
+<th data-quarto-table-cell-role="th">Bland Chromatin</th>
+<th data-quarto-table-cell-role="th">Normal Nucleoli</th>
+<th data-quarto-table-cell-role="th">Mitoses</th>
+<th data-quarto-table-cell-role="th">Class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>5</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>5</td>
+<td>4</td>
+<td>4</td>
+<td>5</td>
+<td>7</td>
+<td>10</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>6</td>
+<td>8</td>
+<td>8</td>
+<td>1</td>
+<td>3</td>
+<td>4</td>
+<td>3</td>
+<td>7</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<section id="missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="missing-values">Missing Values</h3>
+<p>It’s not uncommon for an object to lack certain attribute values. Sometimes, this information wasn’t gathered, and in other instances, some attributes don’t apply to specific data instances.</p>
+<p>In this dataset, missing values are represented as ‘?’. First we will transform these values in NaNs and then we’ll quantify them.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> data.replace(<span class="st">'?'</span>,np.NaN)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of instances = </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (data.shape[<span class="dv">0</span>]))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of attributes = </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (data.shape[<span class="dv">1</span>]))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of missing values:'</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> col <span class="kw">in</span> data.columns:</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="ch">\t</span><span class="sc">%s</span><span class="st">: </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (col,data[col].isna().<span class="bu">sum</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of instances = 699
+Number of attributes = 10
+Number of missing values:
+    Clump Thickness: 0
+    Uniformity of Cell Size: 0
+    Uniformity of Cell Shape: 0
+    Marginal Adhesion: 0
+    Single Epithelial Cell Size: 0
+    Bare Nuclei: 16
+    Bland Chromatin: 0
+    Normal Nucleoli: 0
+    Mitoses: 0
+    Class: 0</code></pre>
+</div>
+</div>
+<p>As we can see that only “Bare Nuclei” has missing values, we will impute those missing values with the median value of the column itself.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data2 <span class="op">=</span> data[<span class="st">'Bare Nuclei'</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Before replacing missing values:'</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data2[<span class="dv">20</span>:<span class="dv">25</span>])</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>data2 <span class="op">=</span> data2.fillna(data2.median())</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">After replacing missing values:'</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data2[<span class="dv">20</span>:<span class="dv">25</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Before replacing missing values:
+20     10
+21      7
+22      1
+23    NaN
+24      1
+Name: Bare Nuclei, dtype: object
+
+After replacing missing values:
+20     10
+21      7
+22      1
+23    1.0
+24      1
+Name: Bare Nuclei, dtype: object</code></pre>
+</div>
+</div>
+<p>Using drop_na() function is another method for imputing the missing values which is shown below.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of rows in original data = </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span>(data.shape[<span class="dv">0</span>]))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>data2 <span class="op">=</span> data.dropna()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of rows after discarding missing values = </span><span class="sc">%d</span><span class="st">'</span><span class="op">%</span> (data2.shape[<span class="dv">0</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of rows in original data = 699
+Number of rows after discarding missing values = 683</code></pre>
+</div>
+</div>
+</section>
+<section id="outliers" class="level3">
+<h3 class="anchored" data-anchor-id="outliers">Outliers</h3>
+<p>Outliers in a dataset are data points or observations that significantly deviate from the majority of the data. They are values that are unusually extreme or distant from the central tendency of the dataset. Outliers can be either exceptionally high values (positive outliers) or exceptionally low values (negative outliers), and they can have a substantial impact on statistical analyses and machine learning models.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>data2 <span class="op">=</span> data.drop([<span class="st">'Class'</span>],axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>data2[<span class="st">'Bare Nuclei'</span>] <span class="op">=</span> pd.to_numeric(data2[<span class="st">'Bare Nuclei'</span>])</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>plt.boxplot(x<span class="op">=</span>data2)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="_r-python-exercise2-abhishekdeore_files/figure-html/cell-6-output-1.png" width="789" height="781"></p>
+</div>
+</div>
+<p>The boxplots indicate that among the columns, specifically Marginal Adhesion, Single Epithetial Cell Size, Bland Cromatin, Normal Nucleoli, and Mitoses, there are instances with notably high values. To address this issue, we can calculate the Z-score for each attribute and eliminate instances that exhibit attributes with exceptionally high or low Z-scores.</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> (data2<span class="op">-</span>data2.mean())<span class="op">/</span>data2.std()</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Z[<span class="dv">20</span>:<span class="dv">25</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Clump Thickness</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Size</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Shape</th>
+<th data-quarto-table-cell-role="th">Marginal Adhesion</th>
+<th data-quarto-table-cell-role="th">Single Epithelial Cell Size</th>
+<th data-quarto-table-cell-role="th">Bare Nuclei</th>
+<th data-quarto-table-cell-role="th">Bland Chromatin</th>
+<th data-quarto-table-cell-role="th">Normal Nucleoli</th>
+<th data-quarto-table-cell-role="th">Mitoses</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">20</td>
+<td>0.917080</td>
+<td>-0.044070</td>
+<td>-0.406284</td>
+<td>2.519152</td>
+<td>0.805662</td>
+<td>1.771569</td>
+<td>0.640688</td>
+<td>0.371049</td>
+<td>1.405526</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">21</td>
+<td>1.982519</td>
+<td>0.611354</td>
+<td>0.603167</td>
+<td>0.067638</td>
+<td>1.257272</td>
+<td>0.948266</td>
+<td>1.460910</td>
+<td>2.335921</td>
+<td>-0.343666</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">22</td>
+<td>-0.503505</td>
+<td>-0.699494</td>
+<td>-0.742767</td>
+<td>-0.632794</td>
+<td>-0.549168</td>
+<td>-0.698341</td>
+<td>-0.589645</td>
+<td>-0.611387</td>
+<td>-0.343666</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">23</td>
+<td>1.272227</td>
+<td>0.283642</td>
+<td>0.603167</td>
+<td>-0.632794</td>
+<td>-0.549168</td>
+<td>NaN</td>
+<td>1.460910</td>
+<td>0.043570</td>
+<td>-0.343666</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">24</td>
+<td>-1.213798</td>
+<td>-0.699494</td>
+<td>-0.742767</td>
+<td>-0.632794</td>
+<td>-0.549168</td>
+<td>-0.698341</td>
+<td>-0.179534</td>
+<td>-0.611387</td>
+<td>-0.343666</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of rows before discarding outliers = </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (Z.shape[<span class="dv">0</span>]))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Z2 <span class="op">=</span> Z.loc[((Z <span class="op">&gt;</span> <span class="op">-</span><span class="dv">3</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">==</span><span class="dv">9</span>) <span class="op">&amp;</span> ((Z <span class="op">&lt;=</span> <span class="dv">3</span>).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>)<span class="op">==</span><span class="dv">9</span>),:]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of rows after discarding missing values = </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (Z2.shape[<span class="dv">0</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of rows before discarding outliers = 699
+Number of rows after discarding missing values = 632</code></pre>
+</div>
+</div>
+<p>This shows that we have discarded the outliers from the dataset.</p>
+</section>
+<section id="duplicate-data" class="level3">
+<h3 class="anchored" data-anchor-id="duplicate-data">Duplicate Data</h3>
+<p>Duplicate data is when there are multiple entries in a dataset that are exactly the same or very similar to each other. Duplicate data can occur for various reasons and can impact the quality and integrity of a dataset.</p>
+<p>Here, we will be counting how many duplicate values we have in our data.</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dups <span class="op">=</span> data.duplicated()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of duplicate rows = </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (dups.<span class="bu">sum</span>()))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>data.loc[[<span class="dv">11</span>,<span class="dv">28</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of duplicate rows = 236</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Clump Thickness</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Size</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Shape</th>
+<th data-quarto-table-cell-role="th">Marginal Adhesion</th>
+<th data-quarto-table-cell-role="th">Single Epithelial Cell Size</th>
+<th data-quarto-table-cell-role="th">Bare Nuclei</th>
+<th data-quarto-table-cell-role="th">Bland Chromatin</th>
+<th data-quarto-table-cell-role="th">Normal Nucleoli</th>
+<th data-quarto-table-cell-role="th">Mitoses</th>
+<th data-quarto-table-cell-role="th">Class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">11</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">28</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Here, we will be dropping the duplicate values using the dataframe.drop_duplicates() function.</p>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of rows before discarding duplicates = </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (data.shape[<span class="dv">0</span>]))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>data2 <span class="op">=</span> data.drop_duplicates()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Number of rows after discarding duplicates = </span><span class="sc">%d</span><span class="st">'</span> <span class="op">%</span> (data2.shape[<span class="dv">0</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of rows before discarding duplicates = 699
+Number of rows after discarding duplicates = 463</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="aggregation" class="level2">
+<h2 class="anchored" data-anchor-id="aggregation">Aggregation</h2>
+<p>Aggregation is a data processing technique used to combine multiple data points or values into a single summary value or statistic. The goal of aggregation is to simplify and summarize data, making it easier to understand, analyze, and interpret. Aggregation is commonly used in various fields, including statistics, data analysis, and database management.</p>
+<p>The below code loads and visualizes daily precipitation data over time, with the plot showing how precipitation varies on a daily basis. The title of the plot includes information about the variance of the precipitation data, which provides an indication of how much the daily precipitation values fluctuate.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>daily <span class="op">=</span> pd.read_csv(<span class="st">'DTW_prec.csv'</span>, header<span class="op">=</span><span class="st">'infer'</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>daily.index <span class="op">=</span> pd.to_datetime(daily[<span class="st">'DATE'</span>])</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>daily <span class="op">=</span> daily[<span class="st">'PRCP'</span>]</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> daily.plot(kind<span class="op">=</span><span class="st">'line'</span>,figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">3</span>))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Daily Precipitation (variance = </span><span class="sc">%.4f</span><span class="st">)'</span> <span class="op">%</span> (daily.var()))</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="_r-python-exercise2-abhishekdeore_files/figure-html/cell-11-output-1.png" width="1153" height="291"></p>
+</div>
+</div>
+<p>Now we will plot a line plot showing the monthly variation in precipitation over time, with the title indicating the variance of the monthly precipitation values</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>monthly <span class="op">=</span> daily.groupby(pd.Grouper(freq<span class="op">=</span><span class="st">'M'</span>)).<span class="bu">sum</span>()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> monthly.plot(kind<span class="op">=</span><span class="st">'line'</span>,figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">3</span>))</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Monthly Precipitation (variance = </span><span class="sc">%.4f</span><span class="st">)'</span> <span class="op">%</span> (monthly.var()))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="_r-python-exercise2-abhishekdeore_files/figure-html/cell-12-output-1.png" width="1153" height="302"></p>
+</div>
+</div>
+<p>The above plot provides a visual summary of how precipitation varies on a monthly basis.</p>
+<p>In the code below, the daily precipitation time series are grouped and aggregated by year to obtain the annual precipitation values.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>annual <span class="op">=</span> daily.groupby(pd.Grouper(freq<span class="op">=</span><span class="st">'Y'</span>)).<span class="bu">sum</span>()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> annual.plot(kind<span class="op">=</span><span class="st">'line'</span>,figsize<span class="op">=</span>(<span class="dv">15</span>,<span class="dv">6</span>))</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">'Annual Precipitation (variance = </span><span class="sc">%.4f</span><span class="st">)'</span> <span class="op">%</span> (annual.var()))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="_r-python-exercise2-abhishekdeore_files/figure-html/cell-13-output-1.png" width="1174" height="523"></p>
+</div>
+</div>
+</section>
+<section id="sampling" class="level2">
+<h2 class="anchored" data-anchor-id="sampling">Sampling</h2>
+<p>Sampling is a frequently employed method with two primary purposes: (1) simplifying data for exploratory analysis and adapting algorithms to handle large datasets, and (2) assessing uncertainties arising from diverse data distributions. Multiple sampling techniques exist, including sampling without replacement, which involves removing each chosen instance from the dataset, and sampling with replacement, where chosen instances remain in the dataset, potentially being selected multiple times in the sample.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Clump Thickness</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Size</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Shape</th>
+<th data-quarto-table-cell-role="th">Marginal Adhesion</th>
+<th data-quarto-table-cell-role="th">Single Epithelial Cell Size</th>
+<th data-quarto-table-cell-role="th">Bare Nuclei</th>
+<th data-quarto-table-cell-role="th">Bland Chromatin</th>
+<th data-quarto-table-cell-role="th">Normal Nucleoli</th>
+<th data-quarto-table-cell-role="th">Mitoses</th>
+<th data-quarto-table-cell-role="th">Class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>5</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>5</td>
+<td>4</td>
+<td>4</td>
+<td>5</td>
+<td>7</td>
+<td>10</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>6</td>
+<td>8</td>
+<td>8</td>
+<td>1</td>
+<td>3</td>
+<td>4</td>
+<td>3</td>
+<td>7</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>A sample of size 3 is randomly selected (without replacement) from the original data.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> data.sample(n<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Clump Thickness</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Size</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Shape</th>
+<th data-quarto-table-cell-role="th">Marginal Adhesion</th>
+<th data-quarto-table-cell-role="th">Single Epithelial Cell Size</th>
+<th data-quarto-table-cell-role="th">Bare Nuclei</th>
+<th data-quarto-table-cell-role="th">Bland Chromatin</th>
+<th data-quarto-table-cell-role="th">Normal Nucleoli</th>
+<th data-quarto-table-cell-role="th">Mitoses</th>
+<th data-quarto-table-cell-role="th">Class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">254</td>
+<td>9</td>
+<td>10</td>
+<td>10</td>
+<td>1</td>
+<td>10</td>
+<td>8</td>
+<td>3</td>
+<td>3</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">41</td>
+<td>10</td>
+<td>4</td>
+<td>3</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+<td>6</td>
+<td>5</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">182</td>
+<td>6</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Here, we choose 1% of the data randomly (without replacement) and showcase the samples that have been selected. The “random_state” parameter in the function specifies the initial seed value for the random number generator.</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> data.sample(frac<span class="op">=</span><span class="fl">0.01</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Clump Thickness</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Size</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Shape</th>
+<th data-quarto-table-cell-role="th">Marginal Adhesion</th>
+<th data-quarto-table-cell-role="th">Single Epithelial Cell Size</th>
+<th data-quarto-table-cell-role="th">Bare Nuclei</th>
+<th data-quarto-table-cell-role="th">Bland Chromatin</th>
+<th data-quarto-table-cell-role="th">Normal Nucleoli</th>
+<th data-quarto-table-cell-role="th">Mitoses</th>
+<th data-quarto-table-cell-role="th">Class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">584</td>
+<td>5</td>
+<td>1</td>
+<td>1</td>
+<td>6</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">417</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">606</td>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">349</td>
+<td>4</td>
+<td>2</td>
+<td>3</td>
+<td>5</td>
+<td>3</td>
+<td>8</td>
+<td>7</td>
+<td>6</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">134</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">502</td>
+<td>4</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">117</td>
+<td>4</td>
+<td>5</td>
+<td>5</td>
+<td>10</td>
+<td>4</td>
+<td>10</td>
+<td>7</td>
+<td>5</td>
+<td>8</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Finally, we perform a sampling with replacement to create a sample whose size is equal to 1% of the entire data. You should be able to observe duplicate instances in the sample by increasing the sample size.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sample <span class="op">=</span> data.sample(frac<span class="op">=</span><span class="fl">0.01</span>, replace<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>sample</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Clump Thickness</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Size</th>
+<th data-quarto-table-cell-role="th">Uniformity of Cell Shape</th>
+<th data-quarto-table-cell-role="th">Marginal Adhesion</th>
+<th data-quarto-table-cell-role="th">Single Epithelial Cell Size</th>
+<th data-quarto-table-cell-role="th">Bare Nuclei</th>
+<th data-quarto-table-cell-role="th">Bland Chromatin</th>
+<th data-quarto-table-cell-role="th">Normal Nucleoli</th>
+<th data-quarto-table-cell-role="th">Mitoses</th>
+<th data-quarto-table-cell-role="th">Class</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">37</td>
+<td>6</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>7</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">235</td>
+<td>3</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+<td>2</td>
+<td>NaN</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">72</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>7</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">645</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">144</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">129</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>10</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">583</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="discretization" class="level2">
+<h2 class="anchored" data-anchor-id="discretization">Discretization</h2>
+<p>Discretization is a common data preprocessing technique employed to convert a continuous attribute into a categorical one.</p>
+<p>The following example demonstrates the application of two commonly used unsupervised discretization methods (equal width and equal depth) to the ‘Clump Thickness’ attribute in the breast cancer dataset.</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))  <span class="co"># Adjust the width and height as needed</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'Clump Thickness'</span>].hist(bins<span class="op">=</span><span class="dv">10</span>) </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Histogram of Clump Thickness'</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>value_counts <span class="op">=</span> data[<span class="st">'Clump Thickness'</span>].value_counts(sort<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(value_counts)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="_r-python-exercise2-abhishekdeore_files/figure-html/cell-18-output-1.png" width="649" height="505"></p>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5     130
+3     108
+6      34
+4      80
+8      46
+1     145
+2      50
+7      23
+10     69
+9      14
+Name: Clump Thickness, dtype: int64</code></pre>
+</div>
+</div>
+<p>In the case of the equal-width method, we can utilize the “cut()” function to partition the attribute into four bins, each having approximately the same interval width. To ascertain the count of instances within each bin, the “value_counts()” function can be employed.</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> pd.cut(data[<span class="st">'Clump Thickness'</span>],<span class="dv">4</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>bins.value_counts(sort<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>(0.991, 3.25]    303
+(3.25, 5.5]      210
+(5.5, 7.75]       57
+(7.75, 10.0]     129
+Name: Clump Thickness, dtype: int64</code></pre>
+</div>
+</div>
+<p>When employing the equal frequency approach, you can utilize the “qcut()” function to divide the values into four bins in a manner where each bin contains approximately an equal number of instances.</p>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> pd.qcut(data[<span class="st">'Clump Thickness'</span>],<span class="dv">4</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>bins.value_counts(sort<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>(0.999, 2.0]    195
+(2.0, 4.0]      188
+(4.0, 6.0]      164
+(6.0, 10.0]     152
+Name: Clump Thickness, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="principal-component-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="principal-component-analysis">Principal Component Analysis</h2>
+<p>Principal component analysis (PCA) is a traditional technique used to decrease the number of features in a dataset by transforming the data from its original high-dimensional space into a lower-dimensional one. The resulting attributes, often called components, exhibit the following characteristics: (1) they are constructed as linear combinations of the original attributes, (2) they are mutually orthogonal (perpendicular), and (3) they capture the highest possible amount of variability present in the data.</p>
+<p>The code below will read each image file and convert the RGB image into a 111 x 111 x 3 = 36963 feature values.</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.image <span class="im">as</span> mpimg</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>numImages <span class="op">=</span> <span class="dv">16</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">7</span>))</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>imgData <span class="op">=</span> np.zeros(shape<span class="op">=</span>(numImages,<span class="dv">36963</span>))</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,numImages<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    filename <span class="op">=</span> <span class="st">'data/pics/Picture'</span><span class="op">+</span><span class="bu">str</span>(i)<span class="op">+</span><span class="st">'.jpg'</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> mpimg.imread(filename)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> fig.add_subplot(<span class="dv">4</span>,<span class="dv">4</span>,i)</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    plt.imshow(img)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="bu">str</span>(i))</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    imgData[i<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> np.array(img.flatten()).reshape(<span class="dv">1</span>,img.shape[<span class="dv">0</span>]<span class="op">*</span>img.shape[<span class="dv">1</span>]<span class="op">*</span>img.shape[<span class="dv">2</span>])</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()   </span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="_r-python-exercise2-abhishekdeore_files/figure-html/cell-21-output-1.png" width="642" height="662"></p>
+</div>
+</div>
+<p>&nbsp;The projected values of the original image data are stored in a pandas DataFrame object named projected below.</p>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>numComponents <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span>numComponents)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>pca.fit(imgData)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>projected <span class="op">=</span> pca.transform(imgData)</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>projected <span class="op">=</span> pd.DataFrame(projected,columns<span class="op">=</span>[<span class="st">'pc1'</span>,<span class="st">'pc2'</span>],index<span class="op">=</span><span class="bu">range</span>(<span class="dv">1</span>,numImages<span class="op">+</span><span class="dv">1</span>))</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>projected[<span class="st">'food'</span>] <span class="op">=</span> [<span class="st">'burger'</span>, <span class="st">'burger'</span>,<span class="st">'burger'</span>,<span class="st">'burger'</span>,<span class="st">'drink'</span>,<span class="st">'drink'</span>,<span class="st">'drink'</span>,<span class="st">'drink'</span>,</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>                      <span class="st">'pasta'</span>, <span class="st">'pasta'</span>, <span class="st">'pasta'</span>, <span class="st">'pasta'</span>, <span class="st">'chicken'</span>, <span class="st">'chicken'</span>, <span class="st">'chicken'</span>, <span class="st">'chicken'</span>]</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>projected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">pc1</th>
+<th data-quarto-table-cell-role="th">pc2</th>
+<th data-quarto-table-cell-role="th">food</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1</td>
+<td>-1592.887104</td>
+<td>6651.744923</td>
+<td>burger</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">2</td>
+<td>-513.013314</td>
+<td>6332.358101</td>
+<td>burger</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">3</td>
+<td>963.275790</td>
+<td>7210.149815</td>
+<td>burger</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">4</td>
+<td>2165.066102</td>
+<td>9039.355364</td>
+<td>burger</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5</td>
+<td>-7842.478718</td>
+<td>-1064.890535</td>
+<td>drink</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">6</td>
+<td>-8458.900365</td>
+<td>-5385.870354</td>
+<td>drink</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">7</td>
+<td>-11181.813645</td>
+<td>-5359.741912</td>
+<td>drink</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">8</td>
+<td>-6831.006657</td>
+<td>1129.821469</td>
+<td>drink</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">9</td>
+<td>7639.866739</td>
+<td>-5060.319551</td>
+<td>pasta</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">10</td>
+<td>-704.460679</td>
+<td>-532.032954</td>
+<td>pasta</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">11</td>
+<td>7237.621122</td>
+<td>-5286.146123</td>
+<td>pasta</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">12</td>
+<td>4426.728237</td>
+<td>-4628.677992</td>
+<td>pasta</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13</td>
+<td>11866.470083</td>
+<td>1519.399066</td>
+<td>chicken</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">14</td>
+<td>73.967104</td>
+<td>1381.093486</td>
+<td>chicken</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">15</td>
+<td>-7510.577933</td>
+<td>-1188.770589</td>
+<td>chicken</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">16</td>
+<td>10262.143238</td>
+<td>-4757.472215</td>
+<td>chicken</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Finally, we draw a scatter plot to display the projected values.</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> {<span class="st">'burger'</span>:<span class="st">'b'</span>, <span class="st">'drink'</span>:<span class="st">'r'</span>, <span class="st">'pasta'</span>:<span class="st">'g'</span>, <span class="st">'chicken'</span>:<span class="st">'k'</span>}</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>markerTypes <span class="op">=</span> {<span class="st">'burger'</span>:<span class="st">'+'</span>, <span class="st">'drink'</span>:<span class="st">'x'</span>, <span class="st">'pasta'</span>:<span class="st">'o'</span>, <span class="st">'chicken'</span>:<span class="st">'s'</span>}</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> foodType <span class="kw">in</span> markerTypes:</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> projected[projected[<span class="st">'food'</span>]<span class="op">==</span>foodType]</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    plt.scatter(d[<span class="st">'pc1'</span>],d[<span class="st">'pc2'</span>],c<span class="op">=</span>colors[foodType],s<span class="op">=</span><span class="dv">60</span>,marker<span class="op">=</span>markerTypes[foodType])</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="_r-python-exercise2-abhishekdeore_files/figure-html/cell-23-output-1.png" width="669" height="485"></p>
+</div>
+</div>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

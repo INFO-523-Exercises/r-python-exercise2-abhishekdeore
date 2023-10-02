@@ -1,0 +1,274 @@
+---
+title: "r-python-exercise2-abhishekdeore"
+author: "Abhishek Deore"
+format: html
+editor: visual
+---
+
+## Data Quality Issues
+
+Data quality issues refer to problems or shortcomings in the data that can affect its reliability, accuracy, completeness, and usefulness for analysis or decision-making. Data quality is crucial because inaccurate or incomplete data can lead to incorrect conclusions and unreliable results.
+
+Addressing data quality issues typically involves data cleaning, validation, and transformation processes. Data quality tools and practices, such as data profiling, data validation rules, and data governance, are often used to improve and maintain data quality.
+
+```{python}
+import pandas as pd
+data = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data', header=None)
+data.columns = ['Sample code', 'Clump Thickness', 'Uniformity of Cell Size', 'Uniformity of Cell Shape',
+                'Marginal Adhesion', 'Single Epithelial Cell Size', 'Bare Nuclei', 'Bland Chromatin',
+                'Normal Nucleoli', 'Mitoses','Class']
+
+data = data.drop(['Sample code'],axis=1)
+print('Number of instances = %d' % (data.shape[0]))
+print('Number of attributes = %d' % (data.shape[1]))
+data.head()
+```
+
+### Missing Values
+
+It's not uncommon for an object to lack certain attribute values. Sometimes, this information wasn't gathered, and in other instances, some attributes don't apply to specific data instances.
+
+In this dataset, missing values are represented as '?'. First we will transform these values in NaNs and then we'll quantify them.
+
+```{python}
+import numpy as np
+
+data = data.replace('?',np.NaN)
+
+print('Number of instances = %d' % (data.shape[0]))
+print('Number of attributes = %d' % (data.shape[1]))
+
+print('Number of missing values:')
+for col in data.columns:
+    print('\t%s: %d' % (col,data[col].isna().sum()))
+```
+
+As we can see that only "Bare Nuclei" has missing values, we will impute those missing values with the median value of the column itself.
+
+```{python}
+data2 = data['Bare Nuclei']
+
+print('Before replacing missing values:')
+print(data2[20:25])
+data2 = data2.fillna(data2.median())
+
+print('\nAfter replacing missing values:')
+print(data2[20:25])
+```
+
+Using drop_na() function is another method for imputing the missing values which is shown below.
+
+```{python}
+print('Number of rows in original data = %d' %(data.shape[0]))
+
+data2 = data.dropna()
+print('Number of rows after discarding missing values = %d'% (data2.shape[0]))
+```
+
+### Outliers
+
+Outliers in a dataset are data points or observations that significantly deviate from the majority of the data. They are values that are unusually extreme or distant from the central tendency of the dataset. Outliers can be either exceptionally high values (positive outliers) or exceptionally low values (negative outliers), and they can have a substantial impact on statistical analyses and machine learning models.
+
+```{python}
+
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10,10))
+data2 = data.drop(['Class'],axis=1)
+data2['Bare Nuclei'] = pd.to_numeric(data2['Bare Nuclei'])
+plt.boxplot(x=data2)
+plt.show()
+```
+
+The boxplots indicate that among the columns, specifically Marginal Adhesion, Single Epithetial Cell Size, Bland Cromatin, Normal Nucleoli, and Mitoses, there are instances with notably high values. To address this issue, we can calculate the Z-score for each attribute and eliminate instances that exhibit attributes with exceptionally high or low Z-scores.
+
+```{python}
+Z = (data2-data2.mean())/data2.std()
+Z[20:25]
+```
+
+```{python}
+print('Number of rows before discarding outliers = %d' % (Z.shape[0]))
+
+Z2 = Z.loc[((Z > -3).sum(axis=1)==9) & ((Z <= 3).sum(axis=1)==9),:]
+print('Number of rows after discarding missing values = %d' % (Z2.shape[0]))
+```
+
+This shows that we have discarded the outliers from the dataset.
+
+### Duplicate Data
+
+Duplicate data is when there are multiple entries in a dataset that are exactly the same or very similar to each other. Duplicate data can occur for various reasons and can impact the quality and integrity of a dataset.
+
+Here, we will be counting how many duplicate values we have in our data.
+
+```{python}
+dups = data.duplicated()
+print('Number of duplicate rows = %d' % (dups.sum()))
+data.loc[[11,28]]
+```
+
+Here, we will be dropping the duplicate values using the dataframe.drop_duplicates() function.
+
+```{python}
+print('Number of rows before discarding duplicates = %d' % (data.shape[0]))
+data2 = data.drop_duplicates()
+print('Number of rows after discarding duplicates = %d' % (data2.shape[0]))
+```
+
+## Aggregation
+
+Aggregation is a data processing technique used to combine multiple data points or values into a single summary value or statistic. The goal of aggregation is to simplify and summarize data, making it easier to understand, analyze, and interpret. Aggregation is commonly used in various fields, including statistics, data analysis, and database management.
+
+The below code loads and visualizes daily precipitation data over time, with the plot showing how precipitation varies on a daily basis. The title of the plot includes information about the variance of the precipitation data, which provides an indication of how much the daily precipitation values fluctuate.
+
+```{python}
+daily = pd.read_csv('DTW_prec.csv', header='infer')
+daily.index = pd.to_datetime(daily['DATE'])
+daily = daily['PRCP']
+plt.figure(figsize=(8, 6))
+ax = daily.plot(kind='line',figsize=(15,3))
+ax.set_title('Daily Precipitation (variance = %.4f)' % (daily.var()))
+plt.show()
+```
+
+Now we will plot a line plot showing the monthly variation in precipitation over time, with the title indicating the variance of the monthly precipitation values
+
+```{python}
+monthly = daily.groupby(pd.Grouper(freq='M')).sum()
+plt.figure(figsize=(8,6))
+ax = monthly.plot(kind='line',figsize=(15,3))
+ax.set_title('Monthly Precipitation (variance = %.4f)' % (monthly.var()))
+plt.show()
+```
+
+The above plot provides a visual summary of how precipitation varies on a monthly basis.
+
+In the code below, the daily precipitation time series are grouped and aggregated by year to obtain the annual precipitation values.
+
+```{python}
+annual = daily.groupby(pd.Grouper(freq='Y')).sum()
+ax = annual.plot(kind='line',figsize=(15,6))
+ax.set_title('Annual Precipitation (variance = %.4f)' % (annual.var()))
+plt.show()
+```
+
+## Sampling
+
+Sampling is a frequently employed method with two primary purposes: (1) simplifying data for exploratory analysis and adapting algorithms to handle large datasets, and (2) assessing uncertainties arising from diverse data distributions. Multiple sampling techniques exist, including sampling without replacement, which involves removing each chosen instance from the dataset, and sampling with replacement, where chosen instances remain in the dataset, potentially being selected multiple times in the sample.
+
+```{python}
+data.head()
+```
+
+A sample of size 3 is randomly selected (without replacement) from the original data.
+
+```{python}
+sample = data.sample(n=3)
+sample
+```
+
+Here, we choose 1% of the data randomly (without replacement) and showcase the samples that have been selected. The "random_state" parameter in the function specifies the initial seed value for the random number generator.
+
+```{python}
+sample = data.sample(frac=0.01, random_state=1)
+sample
+```
+
+Finally, we perform a sampling with replacement to create a sample whose size is equal to 1% of the entire data. You should be able to observe duplicate instances in the sample by increasing the sample size.
+
+```{python}
+sample = data.sample(frac=0.01, replace=True, random_state=1)
+sample
+```
+
+## Discretization
+
+Discretization is a common data preprocessing technique employed to convert a continuous attribute into a categorical one.
+
+The following example demonstrates the application of two commonly used unsupervised discretization methods (equal width and equal depth) to the 'Clump Thickness' attribute in the breast cancer dataset.
+
+```{python}
+plt.figure(figsize=(8, 6))  # Adjust the width and height as needed
+data['Clump Thickness'].hist(bins=10) 
+plt.title('Histogram of Clump Thickness')
+plt.show()
+value_counts = data['Clump Thickness'].value_counts(sort=False)
+print(value_counts)
+
+
+```
+
+In the case of the equal-width method, we can utilize the "cut()" function to partition the attribute into four bins, each having approximately the same interval width. To ascertain the count of instances within each bin, the "value_counts()" function can be employed.
+
+```{python}
+bins = pd.cut(data['Clump Thickness'],4)
+bins.value_counts(sort=False)
+
+```
+
+When employing the equal frequency approach, you can utilize the "qcut()" function to divide the values into four bins in a manner where each bin contains approximately an equal number of instances.
+
+```{python}
+bins = pd.qcut(data['Clump Thickness'],4)
+bins.value_counts(sort=False)
+```
+
+## Principal Component Analysis
+
+Principal component analysis (PCA) is a traditional technique used to decrease the number of features in a dataset by transforming the data from its original high-dimensional space into a lower-dimensional one. The resulting attributes, often called components, exhibit the following characteristics: (1) they are constructed as linear combinations of the original attributes, (2) they are mutually orthogonal (perpendicular), and (3) they capture the highest possible amount of variability present in the data.
+
+The code below will read each image file and convert the RGB image into a 111 x 111 x 3 = 36963 feature values.
+
+```{python}
+
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+import numpy as np
+
+numImages = 16
+fig = plt.figure(figsize=(7,7))
+imgData = np.zeros(shape=(numImages,36963))
+
+for i in range(1,numImages+1):
+    filename = 'data/pics/Picture'+str(i)+'.jpg'
+    img = mpimg.imread(filename)
+    ax = fig.add_subplot(4,4,i)
+    plt.imshow(img)
+    plt.axis('off')
+    ax.set_title(str(i))
+    imgData[i-1] = np.array(img.flatten()).reshape(1,img.shape[0]*img.shape[1]*img.shape[2])
+plt.tight_layout()   
+plt.show()
+```
+
+ The projected values of the original image data are stored in a pandas DataFrame object named projected below.
+
+```{python}
+import pandas as pd
+from sklearn.decomposition import PCA
+
+numComponents = 2
+pca = PCA(n_components=numComponents)
+pca.fit(imgData)
+
+projected = pca.transform(imgData)
+projected = pd.DataFrame(projected,columns=['pc1','pc2'],index=range(1,numImages+1))
+projected['food'] = ['burger', 'burger','burger','burger','drink','drink','drink','drink',
+                      'pasta', 'pasta', 'pasta', 'pasta', 'chicken', 'chicken', 'chicken', 'chicken']
+projected
+```
+
+Finally, we draw a scatter plot to display the projected values.
+
+```{python}
+import matplotlib.pyplot as plt
+plt.figure(figsize=(8, 6))
+colors = {'burger':'b', 'drink':'r', 'pasta':'g', 'chicken':'k'}
+markerTypes = {'burger':'+', 'drink':'x', 'pasta':'o', 'chicken':'s'}
+
+for foodType in markerTypes:
+    d = projected[projected['food']==foodType]
+    
+    plt.scatter(d['pc1'],d['pc2'],c=colors[foodType],s=60,marker=markerTypes[foodType])
+plt.show()
+```
